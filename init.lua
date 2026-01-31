@@ -889,10 +889,18 @@ require('lazy').setup({
     priority = 1000,
     config = function()
       require('rose-pine').setup {
+        dim_inactive_windows = false,
+        extend_background_behind_borders = true,
+        enable = {},
+        palette = {},
+        groups = {},
+        highlight_groups = {},
+        before_highlight = function() end,
         variant = 'main',
         dark_variant = 'main',
         styles = {
           italic = false,
+          transparency = true,
         },
       }
       vim.cmd 'colorscheme rose-pine'
