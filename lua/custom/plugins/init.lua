@@ -12,18 +12,10 @@ return {
       -- Optional: disable default bindings if you want custom ones
       vim.g.codeium_disable_bindings = 1
       -- Custom keymaps (optional)
-      vim.keymap.set('i', '<C-g>', function()
-        return vim.fn['codeium#Accept']()
-      end, { expr = true })
-      vim.keymap.set('i', '<C-;>', function()
-        return vim.fn['codeium#CycleCompletions'](1)
-      end, { expr = true })
-      vim.keymap.set('i', '<C-,>', function()
-        return vim.fn['codeium#CycleCompletions'](-1)
-      end, { expr = true })
-      vim.keymap.set('i', '<C-x>', function()
-        return vim.fn['codeium#Clear']()
-      end, { expr = true })
+      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<C-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<C-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
     end,
   },
   {
@@ -58,6 +50,26 @@ return {
         },
       }
       vim.cmd 'colorscheme rose-pine'
+    end,
+  },
+  { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+        auto_install = true,
+        highlight = {
+          enable = true,
+          -- Optional: disable slow treesitter highlight for large files
+          disable = function(lang, buf)
+            local max_filesize = 100 * 1024 -- 100 KB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then return true end
+          end,
+        },
+        indent = { enable = true },
+      }
     end,
   },
 }
