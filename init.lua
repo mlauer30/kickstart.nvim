@@ -1,5 +1,4 @@
---[
-
+--[[
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -614,7 +613,8 @@ require('lazy').setup({
       -- You can press `g?` for help in this menu.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'lua_ls', -- Lua Language server
+        -- 'lua_ls', -- Lua Language server
+        'lua-language-server', -- Lua Language server
         'stylua', -- Used to format Lua code
         -- You can add other tools here that you want Mason to install
       })
@@ -640,12 +640,12 @@ require('lazy').setup({
               version = 'LuaJIT',
               path = { 'lua/?.lua', 'lua/?/init.lua' },
             },
-            workspace = {
+            --[[ workspace = {
               checkThirdParty = false,
               -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
               --  See https://github.com/neovim/nvim-lspconfig/issues/3189
               library = vim.api.nvim_get_runtime_file('', true),
-            },
+            },--]]
           })
         end,
         settings = {
