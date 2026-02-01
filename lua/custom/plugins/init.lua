@@ -2,6 +2,8 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+-- vim.o.wrap = true
+vim.keymap.set('n', '<leader>pv', ':Ex<CR>', { desc = 'Go to directories' })
 return {
   {
     'Exafunction/codeium.vim',
@@ -32,5 +34,30 @@ return {
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {},
+  },
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    priority = 1000,
+    config = function()
+      require('rose-pine').setup {
+        dim_inactive_windows = false,
+        extend_background_behind_borders = true,
+        disable_background = true, -- Makes background transparent
+        disable_float_background = true, -- Makes floating windows transparent
+        enable = {},
+        palette = {},
+        groups = {},
+        highlight_groups = {},
+        before_highlight = function() end,
+        variant = 'main',
+        dark_variant = 'main',
+        styles = {
+          italic = false,
+          -- transparency = false,
+        },
+      }
+      vim.cmd 'colorscheme rose-pine'
+    end,
   },
 }
